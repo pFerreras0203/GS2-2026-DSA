@@ -350,3 +350,6 @@ def main():
             print("  [!] Opção inválida. Escolha um número de 0 a 9.")
         else:
             acao(lista)
+            
+if __name__ == "__main__":
+    main()
