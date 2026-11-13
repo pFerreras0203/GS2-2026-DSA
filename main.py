@@ -28,6 +28,7 @@ class No:
         self.dado = dado
         self.proximo = None
 
+CAMPOS_PESQUISA = ("titulo", "categoria")
 
 class ListaEncadeada:
     def __init__(self):
@@ -63,6 +64,8 @@ class ListaEncadeada:
         return None
 
     def pesquisar(self, campo, termo):
+        if campo not in CAMPOS_PESQUISA:
+            raise ValueError(f"Campo inválido para pesquisa: {campo}")
         termo = termo.lower()
         resultados = []
         atual = self.cabeca
@@ -142,10 +145,15 @@ class ListaEncadeada:
 
 def ler_inteiro_positivo(mensagem):
     texto = input(mensagem).strip()
-    if not texto.isdigit() or int(texto) <= 0:
+    try:
+        valor = int(texto)
+    except ValueError:
         print("  [!] Entrada inválida: informe um número inteiro positivo.")
         return None
-    return int(texto)
+    if valor <= 0:
+        print("  [!] Entrada inválida: informe um número inteiro positivo.")
+        return None
+    return valor
 
 def ler_texto(mensagem, atual=None):
     while True:
@@ -339,17 +347,20 @@ def main():
         "8": analisar,
         "9": carregar_exemplos,
     }
-    while True:
-        exibir_menu()
-        opcao = input("Escolha uma opção: ").strip()
-        if opcao == "0":
-            print("\nEncerrando o Citizen Assist AI. Até logo!")
-            break
-        acao = acoes.get(opcao)
-        if acao is None:
-            print("  [!] Opção inválida. Escolha um número de 0 a 9.")
-        else:
-            acao(lista)
+    try:
+        while True:
+            exibir_menu()
+            opcao = input("Escolha uma opção: ").strip()
+            if opcao == "0":
+                print("\nEncerrando o Citizen Assist AI. Até logo!")
+                break
+            acao = acoes.get(opcao)
+            if acao is None:
+                print("  [!] Opção inválida. Escolha um número de 0 a 9.")
+            else:
+                acao(lista)
+    except (KeyboardInterrupt, EOFError):
+        print("\n\nExecução interrompida. Encerrando o Citizen Assist AI.")
             
 if __name__ == "__main__":
     main()
