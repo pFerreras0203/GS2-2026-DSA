@@ -18,26 +18,26 @@ O foco do trabalho é a aplicação prática de estruturas de dados e algoritmos
 
 ## 3. Arquitetura do código
 
-| Elemento | Papel |
-|---|---|
-| `Servico` | Registro com os dados de um serviço |
-| `No` | Nó da lista encadeada (`dado` + `proximo`) |
-| `ListaEncadeada` | Lista encadeada simples com inserção, percurso, busca, remoção, ordenação e contagem por categoria |
-| Funções do menu | `cadastrar`, `consultar_por_id`, `pesquisar`, `atualizar`, `excluir`, `listar`, `ordenar`, `analisar`, `carregar_exemplos` |
-| `main` | Loop do menu interativo (dicionário que mapeia opção → função) |
+| Elemento         | Papel                                                                                                                      |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `Servico`        | Registro com os dados de um serviço                                                                                        |
+| `No`             | Nó da lista encadeada (`dado` + `proximo`)                                                                                 |
+| `ListaEncadeada` | Lista encadeada simples com inserção, percurso, busca, remoção, ordenação e contagem por categoria                         |
+| Funções do menu  | `cadastrar`, `consultar_por_id`, `pesquisar`, `atualizar`, `excluir`, `listar`, `ordenar`, `analisar`, `carregar_exemplos` |
+| `main`           | Loop do menu interativo (dicionário que mapeia opção → função)                                                             |
 
 ### 3.1 Modelo dos registros (`Servico`)
 
-| Campo | Tipo | Descrição | Exemplo |
-|---|---|---|---|
-| `id` | `int` (> 0, único) | Identificador do serviço | `10` |
-| `titulo` | `str` | Nome do serviço | `Segunda via de RG` |
-| `categoria` | `str` | Agrupamento do serviço | `Identidade` |
-| `descricao` | `str` | O que é o serviço | `Emissão de nova identidade.` |
-| `requisitos` | `str` | Documentos/condições exigidas | `Certidão de nascimento e comprovante de residência` |
-| `local` | `str` | Onde solicitar | `Poupatempo` |
-| `prazo` | `str` | Tempo para ficar pronto | `10 dias úteis` |
-| `custo` | `str` | Valor cobrado | `Gratuito` |
+| Campo        | Tipo               | Descrição                     | Exemplo                                              |
+| ------------ | ------------------ | ----------------------------- | ---------------------------------------------------- |
+| `id`         | `int` (> 0, único) | Identificador do serviço      | `10`                                                 |
+| `titulo`     | `str`              | Nome do serviço               | `Segunda via de RG`                                  |
+| `categoria`  | `str`              | Agrupamento do serviço        | `Identidade`                                         |
+| `descricao`  | `str`              | O que é o serviço             | `Emissão de nova identidade.`                        |
+| `requisitos` | `str`              | Documentos/condições exigidas | `Certidão de nascimento e comprovante de residência` |
+| `local`      | `str`              | Onde solicitar                | `Poupatempo`                                         |
+| `prazo`      | `str`              | Tempo para ficar pronto       | `10 dias úteis`                                      |
+| `custo`      | `str`              | Valor cobrado                 | `Gratuito`                                           |
 
 Todos os campos de texto são obrigatórios (não aceitam valor vazio no cadastro).
 
@@ -56,34 +56,34 @@ cabeca                                          cauda
 
 Atributos: `cabeca` (primeiro nó), `cauda` (último nó) e `tamanho` (quantidade de nós).
 
-| Operação | Como funciona |
-|---|---|
-| `inserir_fim` | Cria o nó; se a lista está vazia, ele vira cabeça e cauda; senão, `cauda.proximo` aponta para ele e ele vira a nova cauda |
-| `percorrer` | Gerador que parte da cabeça e segue `proximo` até `None` |
-| `buscar_por_id` | Busca sequencial comparando o `id` |
-| `pesquisar` | Busca sequencial por título ou categoria (texto contido no campo, sem diferenciar maiúsculas/minúsculas); retorna todos os resultados |
-| `remover` | Usa os ponteiros `anterior` e `atual`; trata remoção da cabeça, do meio e da cauda, atualizando `cabeca`, `cauda` e `tamanho` |
-| `ordenar_por_id` | Merge Sort que reordena a lista religando os nós |
-| `contar_por_categoria` | Um percurso que acumula a contagem em um dicionário |
+| Operação               | Como funciona                                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `inserir_fim`          | Cria o nó; se a lista está vazia, ele vira cabeça e cauda; senão, `cauda.proximo` aponta para ele e ele vira a nova cauda             |
+| `percorrer`            | Gerador que parte da cabeça e segue `proximo` até `None`                                                                              |
+| `buscar_por_id`        | Busca sequencial comparando o `id`                                                                                                    |
+| `pesquisar`            | Busca sequencial por título ou categoria (texto contido no campo, sem diferenciar maiúsculas/minúsculas); retorna todos os resultados |
+| `remover`              | Usa os ponteiros `anterior` e `atual`; trata remoção da cabeça, do meio e da cauda, atualizando `cabeca`, `cauda` e `tamanho`         |
+| `ordenar_por_id`       | Merge Sort que reordena a lista religando os nós                                                                                      |
+| `contar_por_categoria` | Um percurso que acumula a contagem em um dicionário                                                                                   |
 
 A **integridade da lista** é mantida porque toda inserção/remoção atualiza `cabeca`, `cauda` e `tamanho`, e o nó removido tem o `proximo` zerado.
 
 ### 3.3 Menu interativo
 
-| Opção | Função |
-|---|---|
-| 1 | Cadastrar serviço |
-| 2 | Consultar por ID |
-| 3 | Pesquisar por título ou categoria |
-| 4 | Atualizar serviço (ENTER mantém o valor atual; o ID não é alterável) |
-| 5 | Excluir serviço |
-| 6 | Listar todos |
-| 7 | Ordenar por ID (Merge Sort) e exibir |
-| 8 | Análise: total de serviços e quantidade por categoria |
-| 9 | Carregar dados de exemplo |
-| 0 | Sair |
+| Opção | Função                                                               |
+| ----- | -------------------------------------------------------------------- |
+| 1     | Cadastrar serviço                                                    |
+| 2     | Consultar por ID                                                     |
+| 3     | Pesquisar por título ou categoria                                    |
+| 4     | Atualizar serviço (ENTER mantém o valor atual; o ID não é alterável) |
+| 5     | Excluir serviço                                                      |
+| 6     | Listar todos                                                         |
+| 7     | Ordenar por ID (Merge Sort) e exibir                                 |
+| 8     | Análise: total de serviços e quantidade por categoria                |
+| 9     | Carregar dados de exemplo                                            |
+| 0     | Sair                                                                 |
 
-**Tratamentos implementados:** opção de menu inválida, ID duplicado, ID não numérico/zero/negativo, campo de texto vazio, lista vazia (em todas as operações) e consulta/pesquisa/exclusão sem resultado.
+**Tratamentos implementados:** opção de menu inválida, ID duplicado, ID não numérico/zero/negativo, campo de texto vazio, lista vazia (em todas as operações), consulta/pesquisa/exclusão sem resultado, campo de pesquisa inválido (`ValueError`) e interrupção pelo teclado (Ctrl+C ou fim de entrada), que encerra o programa com mensagem em vez de mostrar erro.
 
 ## 4. Algoritmos implementados
 
@@ -104,13 +104,13 @@ Algoritmo de **dividir para conquistar**, adaptado à lista encadeada:
 
 Características: **não copia dados**, apenas religa ponteiros; é **estável** (usa `<=`, então IDs iguais mantêm a ordem relativa); e não depende de acesso por índice, o que o torna a escolha natural para listas encadeadas. Ao final, a `cauda` é recalculada.
 
-**Exemplo** (IDs na ordem de inserção dos dados de exemplo: `30 → 10 → 20 → 40`):
+**Exemplo** (IDs na ordem de inserção dos dados de exemplo: `32 → 59 → 30 → 4`):
 
 ```
-[30, 10, 20, 40]
-   ├── [30, 10]  →  [30] [10]  →  mescla → [10, 30]
-   └── [20, 40]  →  [20] [40]  →  mescla → [20, 40]
-mescla final → [10, 20, 30, 40]
+[32, 59, 30, 4]
+   ├── [32, 59]  →  [32] [59]  →  mescla → [32, 59]
+   └── [30, 4]  →  [30] [4]  →  mescla → [4, 30]
+mescla final → [4, 30, 32, 59]
 ```
 
 ## 5. Análise de complexidade (Big-O)
@@ -119,18 +119,18 @@ Considere **n** = número de registros na lista e **m** = tamanho (em caracteres
 
 ### 5.1 Resumo
 
-| Operação | Melhor caso | Caso médio | Pior caso | Espaço extra |
-|---|---|---|---|---|
-| Inserção no fim (`inserir_fim`) | O(1) | O(1) | O(1) | O(1) |
-| Busca por ID (`buscar_por_id`) | O(1) | O(n) | O(n) | O(1) |
-| Pesquisa por título/categoria (`pesquisar`) | O(n·m) | O(n·m) | O(n·m) | O(k)* |
-| Remoção por ID (`remover`) | O(1) | O(n) | O(n) | O(1) |
-| Ordenação (`ordenar_por_id` — Merge Sort) | O(n log n) | O(n log n) | O(n log n) | O(log n) |
-| Atualização (busca + alteração de campos) | O(1) | O(n) | O(n) | O(1) |
-| Percurso / listagem | O(n) | O(n) | O(n) | O(1) |
-| Contagem por categoria | O(n) | O(n) | O(n) | O(c)** |
+| Operação                                    | Melhor caso | Caso médio | Pior caso  | Espaço extra |
+| ------------------------------------------- | ----------- | ---------- | ---------- | ------------ |
+| Inserção no fim (`inserir_fim`)             | O(1)        | O(1)       | O(1)       | O(1)         |
+| Busca por ID (`buscar_por_id`)              | O(1)        | O(n)       | O(n)       | O(1)         |
+| Pesquisa por título/categoria (`pesquisar`) | O(n·m)      | O(n·m)     | O(n·m)     | O(k)\*       |
+| Remoção por ID (`remover`)                  | O(1)        | O(n)       | O(n)       | O(1)         |
+| Ordenação (`ordenar_por_id` — Merge Sort)   | O(n log n)  | O(n log n) | O(n log n) | O(log n)     |
+| Atualização (busca + alteração de campos)   | O(1)        | O(n)       | O(n)       | O(1)         |
+| Percurso / listagem                         | O(n)        | O(n)       | O(n)       | O(1)         |
+| Contagem por categoria                      | O(n)        | O(n)       | O(n)       | O(c)\*\*     |
 
-\* k = quantidade de resultados encontrados. \** c = quantidade de categorias distintas.
+\* k = quantidade de resultados encontrados. \*\* c = quantidade de categorias distintas.
 
 ### 5.2 Justificativas
 
